@@ -1,13 +1,66 @@
 import React from 'react';
+import 'react-bulma-components/dist/react-bulma-components.min.css';
+import './App.scss';
+import { TodoList } from './components/TodoList';
+import { TodoForm } from './components/TodoForm';
 
 class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
+  constructor(){
+    super();
+    this.state = {
+      todos: []
+    }
+  };
+
+  addNewTodo = (newTitle) =>{
+    const newTodo = {
+      title: newTitle,
+      id: Date.now(),
+      completed: false
+    };
+    this.setState({
+      ...this.state,
+      todos: [...this.state.todos, newTodo]
+    });
+  };
+
+  toggleCompleted = (clickedId) => {
+    this.setState({
+      todos: this.state.todos.map(el =>{
+          if(el.id === clickedId){
+            return{
+              ...el,
+              completed: !el.completed
+            }
+          }
+          else {
+            return el;
+          }
+        })
+    });
+    
+  };
+
+  clearCompleted = () => {
+        this.setState({
+            todos: this.state.todos.filter(el => el.completed === false)
+        });
+  } 
+
   render() {
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
+      <div className='App'>
+        <h2 className='main-title'>Welcome to My Todo App</h2>
+        <div className='box'>
+          <TodoForm addNewTodo={this.addNewTodo}
+                    clearCompleted={this.clearCompleted}
+          />
+        </div>
+        <div className='box'>
+          <TodoList todos={this.state.todos}
+                    toggleCompleted={this.toggleCompleted}
+           />
+        </div>
       </div>
     );
   }
