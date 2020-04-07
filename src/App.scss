@@ -1,0 +1,26 @@
+@import "~react-bulma-components/src/index.sass";
+
+.App{
+    background-color: grey;
+    min-height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.box{
+    width:50%;
+    margin:1rem auto;
+}
+
+h2{
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+h3{
+    font-size: large;
+    font-weight: bold;
+}
+
